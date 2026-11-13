@@ -1,21 +1,12 @@
 import axios from "axios";
 
-// ======================================
-// AXIOS API CONFIGURATION
-// ======================================
-
 const API = axios.create({
 
-    baseURL: "http://localhost:5000/api",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
 
-    timeout: 30000,
+    timeout: 60000,
 
 });
-
-// ======================================
-// REQUEST INTERCEPTOR
-// AUTOMATIC JWT TOKEN ATTACHMENT
-// ======================================
 
 API.interceptors.request.use(
 
@@ -41,11 +32,6 @@ API.interceptors.request.use(
 
 );
 
-// ======================================
-// RESPONSE INTERCEPTOR
-// GLOBAL ERROR HANDLING
-// ======================================
-
 API.interceptors.response.use(
 
     (response) => {
@@ -56,15 +42,11 @@ API.interceptors.response.use(
 
     (error) => {
 
-        // Unauthorized Access
-
         if (error.response?.status === 401) {
 
             localStorage.removeItem("token");
 
             localStorage.removeItem("user");
-
-            // Redirect to login
 
             if (window.location.pathname !== "/login") {
 
@@ -79,9 +61,5 @@ API.interceptors.response.use(
     }
 
 );
-
-// ======================================
-// EXPORT API
-// ======================================
 
 export default API;
