@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { login } from "../services/authService";
 
 function Login() {
@@ -38,7 +38,7 @@ function Login() {
         } catch (err) {
             setError(
                 err.response?.data?.message ||
-                "Unable to login. Please try again."
+                "Invalid email or password"
             );
         } finally {
             setLoading(false);
@@ -52,7 +52,7 @@ function Login() {
                 <h1 style={styles.heading}>Welcome Back</h1>
 
                 <p style={styles.subtitle}>
-                    Login to your account
+                    Login to your CareerPilot AI account
                 </p>
 
                 {error && (
@@ -63,7 +63,9 @@ function Login() {
 
                 <form onSubmit={handleSubmit}>
 
-                    <label style={styles.label}>Email Address</label>
+                    <label style={styles.label}>
+                        Email Address
+                    </label>
 
                     <input
                         type="email"
@@ -75,7 +77,9 @@ function Login() {
                         style={styles.input}
                     />
 
-                    <label style={styles.label}>Password</label>
+                    <label style={styles.label}>
+                        Password
+                    </label>
 
                     <input
                         type="password"
@@ -97,6 +101,17 @@ function Login() {
 
                 </form>
 
+                <p style={styles.registerText}>
+                    Don't have an account?{" "}
+
+                    <Link
+                        to="/register"
+                        style={styles.registerLink}
+                    >
+                        Create Account
+                    </Link>
+                </p>
+
             </div>
         </div>
     );
@@ -114,7 +129,7 @@ const styles = {
 
     card: {
         width: "100%",
-        maxWidth: "420px",
+        maxWidth: "430px",
         padding: "35px",
         background: "#ffffff",
         borderRadius: "15px",
@@ -131,20 +146,20 @@ const styles = {
     subtitle: {
         textAlign: "center",
         color: "#64748b",
-        marginBottom: "30px",
+        marginBottom: "25px",
     },
 
     label: {
         display: "block",
-        marginBottom: "8px",
+        marginBottom: "7px",
         fontWeight: "600",
         color: "#334155",
     },
 
     input: {
         width: "100%",
-        padding: "13px",
-        marginBottom: "20px",
+        padding: "12px",
+        marginBottom: "17px",
         border: "1px solid #cbd5e1",
         borderRadius: "8px",
         fontSize: "15px",
@@ -155,7 +170,7 @@ const styles = {
         width: "100%",
         padding: "14px",
         background: "#2563eb",
-        color: "white",
+        color: "#ffffff",
         border: "none",
         borderRadius: "8px",
         fontSize: "16px",
@@ -165,10 +180,23 @@ const styles = {
 
     error: {
         padding: "12px",
-        marginBottom: "20px",
+        marginBottom: "15px",
         background: "#fee2e2",
         color: "#b91c1c",
         borderRadius: "8px",
+    },
+
+    registerText: {
+        textAlign: "center",
+        marginTop: "22px",
+        color: "#64748b",
+        fontSize: "14px",
+    },
+
+    registerLink: {
+        color: "#2563eb",
+        fontWeight: "600",
+        textDecoration: "none",
     },
 };
 
